@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StatelessCompTest = () => {
-    
+
     return (
         <div>
             <h1>Test Component</h1>
