@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 
 class AboutPage extends React.Component {
 
@@ -8,7 +8,7 @@ class AboutPage extends React.Component {
             <div>
                 <h1>About</h1>
                 <p>This application uses React, Redux, React Router, and a variety of other helpful libraries.</p>
-                <Link to={history.back} className="btn btn-primary">Go back</Link>
+                <Link to={browserHistory.goBack} className="btn btn-primary">Go back</Link>
             </div>
         );
     }
