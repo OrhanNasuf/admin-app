@@ -3,10 +3,12 @@ import {Route, IndexRoute} from 'react-router';
 import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
+import StatelessCompTest from './components/Test/StatelessCompTest';
 
 export default (
-    <Route path="/" component="App">
-        <IndexRoute component="HomePage" />
-        <Route path="about" component="AboutPage" />
+    <Route path="/" component={App}>
+        <IndexRoute component={HomePage} />
+        <Route path="about" component={AboutPage} />
+        <Route path="test" component={StatelessCompTest} />
     </Route>
 );
