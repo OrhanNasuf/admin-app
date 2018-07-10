@@ -1,4 +1,7 @@
 import React, {PropTypes} from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
@@ -8,6 +11,8 @@ class CoursesPage extends React.Component {
 
     constructor(props, context) {
         super(props, context);
+
+        this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
     }
 
     courseRow(course, index) {
@@ -16,12 +21,19 @@ class CoursesPage extends React.Component {
         );
     }
 
+    redirectToAddCoursePage() {
+        browserHistory.push('/course');
+    }
+
     render() {
         const {courses} = this.props;
 
         return (
             <div>
                 <h1>Courses</h1>
+                <MuiThemeProvider>
+                    <RaisedButton label="ADD COURSE" primary={true} onClick={this.redirectToAddCoursePage} />
+                </MuiThemeProvider>
                 <CourseList courses={courses} />
             </div>
         );

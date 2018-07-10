@@ -6,6 +6,7 @@ import CustomPage from './components/custom/CustomPage';
 import AboutPage from './components/about/AboutPage';
 import CoursesPage from './components/course/CoursesPage';
 import StatelessCompTest from './components/Test/StatelessCompTest';
+import ManageCoursePage from './components/course/ManageCoursePage';
 
 export default (
     <Route path="/" component={App}>
@@ -14,5 +15,7 @@ export default (
         <Route path="about" component={AboutPage} />
         <Route path="courses" component={CoursesPage} />
         <Route path="test" component={StatelessCompTest} />
+        <Route path="course" component={ManageCoursePage} />
+        <Route path="course/:id" component={ManageCoursePage} />
     </Route>
 );
