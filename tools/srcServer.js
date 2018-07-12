@@ -4,8 +4,6 @@ import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
 
-console.log("Hey!");
-
 /* eslint-disable no-console */
 
 const port = 3000;
