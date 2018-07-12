@@ -1,5 +1,6 @@
 import * as type from './actionTypes';
 import courseApi from '../api/mockAuthorApi';
+import {beginAjaxCall} from './ajaxStatusActions';
 
 export function loadAuthorsSuccess(authors) {
     return {
@@ -10,6 +11,7 @@ export function loadAuthorsSuccess(authors) {
 
 export function loadAuthors() {
     return (dispatch) => {
+        dispatch(beginAjaxCall());
         return courseApi.getAllAuthors().then((authors) => {
             dispatch(loadAuthorsSuccess(authors));
 
