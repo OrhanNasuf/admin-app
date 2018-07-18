@@ -6,6 +6,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
+import {Link} from 'react-router';
+import ReactTable from 'react-table';
+import "react-table/react-table.css";
 
 class CoursesPage extends React.Component {
 
@@ -28,27 +31,63 @@ class CoursesPage extends React.Component {
     render() {
         const {courses} = this.props;
 
+        console.log(courses);
+
         return (
             <div>
                 <h1>Courses</h1>
                 <MuiThemeProvider>
                     <RaisedButton label="ADD COURSE" primary={true} onClick={this.redirectToAddCoursePage} />
                 </MuiThemeProvider>
-                <CourseList courses={courses} />
+                <ReactTable
+                    data={courses}
+                    defaultPageSize={10}
+                    columns={[
+                        {
+                            Header: "",
+                            id: 'watchHref',
+                            accessor: (item) => {
+                                return <a href={item.watchHref} target="_blank">Watch</a>;
+                            },
+                            maxWidth: 60
+                        },
+                        {
+                            Header: "Title",
+                            id: "title",
+                            accessor: (item) => {
+                                return <Link to={"/course/" + item.id}>{item.title}</Link>;
+                            },
+                        },
+                        {
+                            Header: "Author",
+                            accessor: "authorId",
+                            maxWidth: 120
+                        },
+                        {
+                            Header: "Category",
+                            accessor: "category",
+                            maxWidth: 180
+                        },
+                        {
+                            Header: "Length",
+                            accessor: "length",
+                            maxWidth: 60
+                        }
+                    ]}
+                />
             </div>
         );
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(reducer, ownProps) {
     return {
-        courses: state.courses
+        courses: reducer.courses
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(courseActions, dispatch)
     }
 }
 
