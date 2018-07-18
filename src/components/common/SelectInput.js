@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const SelectInput = ({name, label, onChange, defaultOption, value, error, options}) => {
     return (
@@ -15,6 +15,13 @@ const SelectInput = ({name, label, onChange, defaultOption, value, error, option
             </div>
         </div>
     );
+};
+
+SelectInput.propTypes = {
+    name: PropTypes.string,
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    defaultOption: PropTypes.string
 };
 
 export default SelectInput;
