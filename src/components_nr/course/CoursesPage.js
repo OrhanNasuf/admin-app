@@ -19,7 +19,7 @@ class CoursesPage extends React.Component {
             managePageCourse: null,
             courses: [],
             authors: []
-        }
+        };
 
         this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
         this.toggleManagePage = this.toggleManagePage.bind(this);
@@ -166,6 +166,6 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
     ajaxInProgress: PropTypes.func.isRequired
-}
+};
 
 export default CoursesPage;

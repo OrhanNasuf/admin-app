@@ -20,7 +20,7 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-  ],
+  ],  
   module: {
     loaders: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},

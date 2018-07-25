@@ -30,9 +30,7 @@ class CoursesPage extends React.Component {
 
     render() {
         const {courses} = this.props;
-
-        console.log(courses);
-
+        
         return (
             <div>
                 <h1>Courses</h1>
