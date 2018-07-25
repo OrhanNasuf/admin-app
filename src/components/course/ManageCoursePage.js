@@ -13,7 +13,8 @@ class ManageCoursePage extends React.Component {
         this.state = {
             course: Object.assign({}, props.course),
             errors: {},
-            saveIndicator: false
+            saveIndicator: false,
+            deleteIndicator: false
         };
 
         this.updateCourseState = this.updateCourseState.bind(this);
@@ -57,18 +58,18 @@ class ManageCoursePage extends React.Component {
 
     deleteCourse(event) {
         event.preventDefault();
-        this.setState({saveIndicator: true});
+        this.setState({saveIndicator: true, deleteIndicator: true});
 
         this.props.actions.deleteCourse(
             this.state.course
 
         ).then(() => {
             browserHistory.push('/courses');
-            this.setState({saveIndicator: false});
+            this.setState({saveIndicator: false, deleteIndicator: false});
             toastr.success("Course Deleted!");
 
         }).catch((error) => {
-            this.setState({saveIndicator: false});
+            this.setState({saveIndicator: false, deleteIndicator: false});
             toastr.error(error);
         });
     }
@@ -82,7 +83,9 @@ class ManageCoursePage extends React.Component {
                 onChange={this.updateCourseState}
                 onSave={this.saveCourse}
                 onDelete={this.deleteCourse}
+                disableDelete={!this.props.exists}
                 loading={this.state.saveIndicator}
+                deleting={this.state.deleteIndicator}
             />
         );
     }
@@ -91,7 +94,8 @@ class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
     course: PropTypes.object.isRequired,
     authors: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    exists: PropTypes.bool.isRequired
 };
 
 ManageCoursePage.contextTypes = {
@@ -113,11 +117,16 @@ function getCourseById(courses, id) {
 function mapStateToProps(state, ownProps) {
 
     const courseId = ownProps.params.id; // from the path "/course/:id"
-
-    let course = {id: "", watchHref: "", title: "", authorId: "", length: "", category: ""};
+    let course;
+    let courseExists;
 
     if (courseId && state.courses.length > 0) {
         course = getCourseById(state.courses, courseId);
+        courseExists = true;
+
+    } else {
+        course = {id: "", watchHref: "", title: "", authorId: "", length: "", category: ""};
+        courseExists = false;
     }
     
     const authorsFormattedForDropdown = state.authors.map((author) => {
@@ -129,7 +138,8 @@ function mapStateToProps(state, ownProps) {
     
     return {
         course: course,
-        authors: authorsFormattedForDropdown
+        authors: authorsFormattedForDropdown,
+        exists: courseExists
     };
 }
 
