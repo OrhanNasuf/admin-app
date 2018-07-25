@@ -14,12 +14,12 @@ const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChan
                 hintText="Title"
                 value={course.title}
                 onChange={onChange}
+                style={{width: "100%"}}
             />
             <br />
 
             <SelectInput
                 name="authorId"
-                label="Author"
                 value={course.authorId}
                 defaultOption="Select Author"
                 options={allAuthors}
