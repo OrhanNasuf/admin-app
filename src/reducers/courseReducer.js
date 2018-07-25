@@ -20,6 +20,13 @@ export default function courseReducer(state = initialState.courses, action) {
                 ...state,
                 action.course
             ];
+
+        case type.DELETE_COURSE_SUCCESS:
+            return [
+                ...state.filter((course) => {
+                    return course.id != action.course.id;
+                })
+            ];
     
         default:
             return state;

@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectInput from '../common/SelectInput';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onDelete, onChange, loading, errors}) => {
     return (
         <MuiThemeProvider>
         <form>
@@ -13,7 +13,8 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 name="title"
                 hintText="Title"
                 value={course.title}
-                onChange={onChange} />
+                onChange={onChange}
+            />
             <br />
 
             <SelectInput
@@ -23,21 +24,24 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 defaultOption="Select Author"
                 options={allAuthors}
                 onChange={onChange}
-                error={errors.authorId} />
+                error={errors.authorId}
+            />
             <br />
 
             <TextField
                 name="category"
                 hintText="Category"
                 value={course.category}
-                onChange={onChange} />
+                onChange={onChange}
+            />
             <br />
 
             <TextField
                 name="length"
                 hintText="Length"
                 value={course.length}
-                onChange={onChange} />
+                onChange={onChange}
+            />
             <br />
 
              <RaisedButton
@@ -45,7 +49,15 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 primary={true}
                 disabled = {loading}
                 style={{margin: 12}}
-                onClick={onSave} />
+                onClick={onSave}
+            />
+            <RaisedButton
+                label={"Delete"}
+                secondary={true}
+                disabled = {loading}
+                style={{margin: 12}}
+                onClick={onDelete}
+            />
         </form>
         </MuiThemeProvider>
     );

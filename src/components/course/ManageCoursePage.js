@@ -18,10 +18,11 @@ class ManageCoursePage extends React.Component {
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.course.id != nextProps.course.id) {
+        if (nextProps.course && this.props.course.id != nextProps.course.id) {
             // Necessary to populate form when existing course is loaded directly.
             this.setState({
                 course: Object.assign({}, nextProps.course)
@@ -54,6 +55,24 @@ class ManageCoursePage extends React.Component {
         });
     }
 
+    deleteCourse(event) {
+        event.preventDefault();
+        this.setState({saveIndicator: true});
+
+        this.props.actions.deleteCourse(
+            this.state.course
+
+        ).then(() => {
+            browserHistory.push('/courses');
+            this.setState({saveIndicator: false});
+            toastr.success("Course Deleted!");
+
+        }).catch((error) => {
+            this.setState({saveIndicator: false});
+            toastr.error(error);
+        });
+    }
+
     render() {
         return (
             <CourseForm
@@ -62,6 +81,7 @@ class ManageCoursePage extends React.Component {
                 errors={this.state.errors}
                 onChange={this.updateCourseState}
                 onSave={this.saveCourse}
+                onDelete={this.deleteCourse}
                 loading={this.state.saveIndicator}
             />
         );
@@ -93,9 +113,6 @@ function getCourseById(courses, id) {
 function mapStateToProps(state, ownProps) {
 
     const courseId = ownProps.params.id; // from the path "/course/:id"
-
-    console.log(ownProps);
-    console.log(state);
 
     let course = {id: "", watchHref: "", title: "", authorId: "", length: "", category: ""};
 

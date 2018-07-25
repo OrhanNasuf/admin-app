@@ -91,11 +91,11 @@ class CourseApi {
     });
   }
 
-  static deleteCourse(courseId) {
+  static deleteCourse(course) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfCourseToDelete = courses.findIndex(course => {
-          course.id == courseId;
+        const indexOfCourseToDelete = courses.findIndex(item => {
+          item.id == course.id;
         });
         courses.splice(indexOfCourseToDelete, 1);
         resolve();
