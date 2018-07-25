@@ -30,7 +30,7 @@ class CoursesPage extends React.Component {
 
     render() {
         const {courses} = this.props;
-        
+
         return (
             <div>
                 <h1>Courses</h1>
@@ -43,18 +43,23 @@ class CoursesPage extends React.Component {
                     columns={[
                         {
                             Header: "",
-                            id: 'watchHref',
+                            id: 'watchUrl',
                             accessor: (item) => {
                                 return <a href={item.watchHref} target="_blank">Watch</a>;
                             },
                             maxWidth: 60
                         },
                         {
-                            Header: "Title",
-                            id: "title",
+                            Header: "",
+                            id: 'editCourse',
                             accessor: (item) => {
-                                return <Link to={"/course/" + item.id}>{item.title}</Link>;
+                                return <Link to={"/course/" + item.id}>Edit</Link>;
                             },
+                            maxWidth: 50
+                        },
+                        {
+                            Header: "Title",
+                            accessor: "title"
                         },
                         {
                             Header: "Author",
