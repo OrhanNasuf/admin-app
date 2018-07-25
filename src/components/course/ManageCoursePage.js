@@ -20,6 +20,7 @@ class ManageCoursePage extends React.Component {
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
+        this.cancel = this.cancel.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,6 +75,11 @@ class ManageCoursePage extends React.Component {
         });
     }
 
+    cancel(event) {
+        event.preventDefault();
+        browserHistory.push("/courses");
+    }
+
     render() {
         return (
             <CourseForm
@@ -83,6 +89,7 @@ class ManageCoursePage extends React.Component {
                 onChange={this.updateCourseState}
                 onSave={this.saveCourse}
                 onDelete={this.deleteCourse}
+                onCancel={this.cancel}
                 disableDelete={!this.props.exists}
                 loading={this.state.saveIndicator}
                 deleting={this.state.deleteIndicator}

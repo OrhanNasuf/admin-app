@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectInput from '../common/SelectInput';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChange, loading, deleting, errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChange, onCancel, loading, deleting, errors}) => {
     return (
         <MuiThemeProvider>
         <form>
@@ -57,6 +57,12 @@ const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChan
                 disabled={disableDelete || loading}
                 style={{margin: 12}}
                 onClick={onDelete}
+            />
+            <RaisedButton
+                label={"Cancel"}
+                disabled={loading}
+                style={{margin: 12}}
+                onClick={onCancel}
             />
         </form>
         </MuiThemeProvider>
