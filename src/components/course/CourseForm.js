@@ -3,8 +3,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectInput from '../common/SelectInput';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Popover, MenuItem, Menu, FlatButton } from 'material-ui';
+import { PopoverAnimationVertical } from 'material-ui/Popover';
 
-const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChange, onCancel, loading, deleting, errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChange, onCancel, loading, deleting, confirmDeleteOpen, confirmDeletePop, confirmDeleteClose, confirmDeleteAnchor, errors}) => {
     return (
         <MuiThemeProvider>
         <form>
@@ -56,8 +58,22 @@ const CourseForm = ({course, allAuthors, onSave, onDelete, disableDelete, onChan
                 secondary={true}
                 disabled={disableDelete || loading}
                 style={{margin: 12}}
-                onClick={onDelete}
+                onClick={confirmDeletePop}
             />
+            <Popover
+                style={{marginTop: "10px"}}
+                open={confirmDeleteOpen}
+                anchorEl={confirmDeleteAnchor}
+                anchorOrigin={{horizontal: "middle", vertical: "bottom"}}
+                targetOrigin={{horizontal: "middle", vertical: "top"}}
+                onRequestClose={confirmDeleteClose}
+                animation={PopoverAnimationVertical} >
+                <FlatButton
+                    label="You Sure?"
+                    onClick={onDelete}
+                    secondary={true}
+                />
+            </Popover>
             <RaisedButton
                 label={"Cancel"}
                 disabled={loading}

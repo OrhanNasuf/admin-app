@@ -14,12 +14,15 @@ class ManageCoursePage extends React.Component {
             course: Object.assign({}, props.course),
             errors: {},
             saveIndicator: false,
-            deleteIndicator: false
+            deleteIndicator: false,
+            confirmDeleteOpen: false,
         };
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
+        this.confirmDeletePop = this.confirmDeletePop.bind(this);
+        this.confirmDeleteClose = this.confirmDeleteClose.bind(this);
         this.cancel = this.cancel.bind(this);
     }
 
@@ -59,7 +62,7 @@ class ManageCoursePage extends React.Component {
 
     deleteCourse(event) {
         event.preventDefault();
-        this.setState({saveIndicator: true, deleteIndicator: true});
+        this.setState({saveIndicator: true, deleteIndicator: true, confirmDeleteOpen: false});
 
         this.props.actions.deleteCourse(
             this.state.course
@@ -72,6 +75,20 @@ class ManageCoursePage extends React.Component {
         }).catch((error) => {
             this.setState({saveIndicator: false, deleteIndicator: false});
             toastr.error(error);
+        });
+    }
+
+    confirmDeletePop(event) {
+        event.preventDefault();
+        this.setState({
+            confirmDeleteAnchor: event.currentTarget,
+            confirmDeleteOpen: true
+        });
+    }
+
+    confirmDeleteClose() {
+        this.setState({
+            confirmDeleteOpen: false
         });
     }
 
@@ -93,6 +110,10 @@ class ManageCoursePage extends React.Component {
                 disableDelete={!this.props.exists}
                 loading={this.state.saveIndicator}
                 deleting={this.state.deleteIndicator}
+                confirmDeleteOpen={this.state.confirmDeleteOpen}
+                confirmDeletePop={this.confirmDeletePop}
+                confirmDeleteClose={this.confirmDeleteClose}
+                confirmDeleteAnchor={this.state.confirmDeleteAnchor}
             />
         );
     }
