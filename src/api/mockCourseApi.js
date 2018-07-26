@@ -60,7 +60,7 @@ class CourseApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], courses));
-      }, delay);
+      }, this.randomDelay());
     });
   }
 
@@ -87,7 +87,7 @@ class CourseApi {
         }
 
         resolve(course);
-      }, delay);
+      }, this.randomDelay());
     });
   }
 
@@ -99,8 +99,12 @@ class CourseApi {
         });
         courses.splice(indexOfCourseToDelete, 1);
         resolve();
-      }, delay);
+      }, this.randomDelay());
     });
+  }
+
+  static randomDelay() {
+    return Math.random()*2000+500;
   }
 }
 

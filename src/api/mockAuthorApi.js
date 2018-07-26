@@ -31,7 +31,7 @@ class AuthorApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], authors));
-      }, delay);
+      }, this.randomDelay());
     });
   }
 
@@ -61,7 +61,7 @@ class AuthorApi {
         }
 
         resolve(author);
-      }, delay);
+      }, this.randomDelay());
     });
   }
 
@@ -73,8 +73,12 @@ class AuthorApi {
         });
         authors.splice(indexOfAuthorToDelete, 1);
         resolve();
-      }, delay);
+      }, this.randomDelay());
     });
+  }
+
+  static randomDelay() {
+    return Math.random()*2000+500;
   }
 }
 
